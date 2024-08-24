@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Agenda</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+
+        <li class="nav-item" ngbDropdown>
+          <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button"> Cadastros </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Área</a>
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Profissional</a>
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Tipo Atendimento</a>
+            <hr class="dropdown-divider">
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Cliente</a>
+            <hr class="dropdown-divider">
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Usuário</a>
+          </div>
+        </li>
+
+        <li class="nav-item" ngbDropdown>
+          <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdownAgendamento" role="button">
+            Agendamentos
+          </a>
+          <ul ngbDropdownMenu aria-labelledby="navbarDropdownAgendamento" class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Hoje</a></li>
+            <li><a class="dropdown-item" href="/prototype/pages/criar_agendamento.html">Agendar</a></li>
+            <li><a class="dropdown-item" href="#">Cancelar</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Histórico do Cliente</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Agenda do Profissional</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <div class="my-auto me-4">
+            Atendente: <span class="fw-bold">Marcia Pereira</span>
+        </div>
+        <button class="btn btn-outline-secondary" type="submit">Sair</button>
+      </div>
+    </div>
+  </div>
+</nav>
