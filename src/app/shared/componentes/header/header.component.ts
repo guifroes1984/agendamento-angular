@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  getNomeReal(): string {
+    return "Marcia Pereira";
+  }
+
+  eAdmin(): boolean {
+    return true;
+  }
+
+  logout() {
+    console.log("Sair");
+  }
+
 }
