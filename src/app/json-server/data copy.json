@@ -1,0 +1,16 @@
+{
+  "clientes": [
+    {
+      "id": 1,
+      "nome": "Fran",
+      "telefone": "(44) 98822-4912",
+      "dataNascimento": "10/04/1987"
+    },
+    {
+      "id": 2,
+      "nome": "Davi",
+      "telefone": "(44) 98841-8899",
+      "dataNascimento": "13/12/2023"
+    }
+  ]
+}
