@@ -22,5 +22,18 @@ export class ClienteService {
     return this.http.delete<void>(url);
   }
 
+  salvar(cliente: Cliente): Observable<void> {
+    return this.http.post<void>(this.baseUrl, cliente);
+  }
+
+  getClienteById(id: number): Observable<Cliente> {
+    let url = `${this.baseUrl}/${id}`;
+    return this.http.get<Cliente>(url);
+  }
+
+  atualizar(cliente: Cliente): Observable<void> {
+    let url = `${this.baseUrl}/${cliente.id}`;
+    return this.http.put<void>(url, cliente);
+  }
 
 }

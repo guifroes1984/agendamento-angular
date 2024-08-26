@@ -9,7 +9,8 @@ import { PaginaProfissionalComponent } from './paginas/pagina-profissional/pagin
 import { PaginaTipoAtendimentoComponent } from './paginas/pagina-tipo-atendimento/pagina-tipo-atendimento.component';
 import { PaginaUsuarioComponent } from './paginas/pagina-usuario/pagina-usuario.component';
 import { PaginaTabelaClientesComponent } from './paginas/pagina-tabela-clientes/pagina-tabela-clientes.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginaFormularioClienteComponent } from './paginas/pagina-formulario-cliente/pagina-formulario-cliente.component';
 
 
 
@@ -20,12 +21,14 @@ import { FormsModule } from '@angular/forms';
     PaginaTipoAtendimentoComponent,
     PaginaUsuarioComponent,
     PaginaTabelaClientesComponent,
+    PaginaFormularioClienteComponent,
   ],
   imports: [
     CommonModule,
     ManutencaoRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ]
 })
 export class ManutencaoModule { }

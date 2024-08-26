@@ -4,7 +4,7 @@
   </div>
   <div class="border rounded shadow-sm p-4">
     <div class="text-end">
-      <a href="" class="btn btn-primary">Novo</a>
+      <a routerLink="/clientes-formulario" class="btn btn-primary">Novo</a>
     </div>
     <table class="table table-striped">
       <thead>
@@ -26,7 +26,7 @@
       <tbody>
        <tr *ngFor="let cliente of clientePage.content">
         <th scope="row">{{cliente.id}}</th>
-        <td><a href="">{{cliente.nome}}</a></td>
+        <td><a routerLink="/clientes-formulario/{{cliente.id}}">{{cliente.nome}}</a></td>
         <td>{{cliente.telefone}}</td>
         <td>{{cliente.dataNascimento | date : 'dd/MM/yyyy'}}</td>
         <td (click)="delete(cliente)">
