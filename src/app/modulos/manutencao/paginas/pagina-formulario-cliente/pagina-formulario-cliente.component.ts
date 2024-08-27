@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-pagina-formulario-cliente',
@@ -15,12 +16,11 @@ export class PaginaFormularioClienteComponent implements OnInit {
   clienteForm: FormGroup;
   estaEditando: boolean = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private clienteService: ClienteService,
-    private location: Location,
-    private router: ActivatedRoute
-  ) {
+  constructor(private formBuilder: FormBuilder,
+              private clienteService: ClienteService,
+              private location: Location,
+              private router: ActivatedRoute,
+              private toastService: ToastService) {
 
     this.clienteForm = this.formBuilder.group({
       id: [''],
@@ -52,9 +52,10 @@ export class PaginaFormularioClienteComponent implements OnInit {
         this.clienteService.atualizar(this.clienteForm.value).subscribe(
           {
             next: () => {
+              this.toastService.show("Cliente atualizado com sucesso!", {classname: "bg-success text-light"});
               this.location.back();
             },
-            error: () => alert("Erro ao salvar o cliente")
+            error: () => this.toastService.show("Erro ao salvar o cliente!", {classname: "bg-danger text-light"})
           }
         );
       }
@@ -62,9 +63,10 @@ export class PaginaFormularioClienteComponent implements OnInit {
         this.clienteService.salvar(this.clienteForm.value).subscribe(
           {
             next: () => {
+              this.toastService.show("Cliente salvo com sucesso!", {classname: "bg-success text-light"});
               this.location.back();
             },
-            error: () => alert("Erro ao salvar o cliente")
+            error: () => this.toastService.show("Erro ao criar um cliente!", {classname: "bg-danger text-light"})
           }
         )
       }
