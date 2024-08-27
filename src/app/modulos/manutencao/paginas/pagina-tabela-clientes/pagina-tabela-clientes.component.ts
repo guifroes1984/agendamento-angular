@@ -3,6 +3,7 @@ import { Cliente } from 'src/app/core/modelos/Cliente';
 import { Page } from 'src/app/core/modelos/page';
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { ModalComponent } from 'src/app/shared/componentes/modal/modal.component';
 
 @Component({
   selector: 'app-pagina-tabela-clientes',
@@ -18,7 +19,9 @@ export class PaginaTabelaClientesComponent implements OnInit {
   clientePage: Page<Cliente> = {} as Page<Cliente>;
   page = 1;
 
+  clientes: Cliente[] = [];
   nomeFiltro: string = "";
+  clienteSelecionado !: Cliente;
 
   ngOnInit(): void {
     this.carregarClientes();
@@ -41,17 +44,22 @@ export class PaginaTabelaClientesComponent implements OnInit {
     this.carregarClientes();
   }
 
-  delete(cliente: Cliente) {
-    this.clienteService.delete(cliente).subscribe({
-      next: () => {
-        this.toastService.show("Cliente removido com sucesso!", {classname: "bg-success text-light"});
-        this.carregarClientes();
-      },
-      error: () => {
-        this.toastService.show("Erro ao remover o cliente!", {classname: "bg-danger text-light"});
+  delete(cliente: Cliente, modalConfirma: ModalComponent) {
+    this.clienteSelecionado = cliente;
+    modalConfirma.open().then(confirm => {
+      if (confirm) {
+        this.clienteService.delete(cliente).subscribe({
+          next: () => {
+            this.toastService.show("Cliente removido com sucesso!", {classname: "bg-success text-light"});
+            this.carregarClientes();
+          },
+          error: () => {
+            this.toastService.show("Erro ao remover o cliente!", {classname: "bg-danger text-light"});
 
+          }
+        });
       }
-    });
+    })
   }
 
 }

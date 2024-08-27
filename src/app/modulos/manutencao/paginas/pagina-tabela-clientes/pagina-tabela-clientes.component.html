@@ -29,7 +29,7 @@
         <td><a routerLink="/clientes-formulario/{{cliente.id}}">{{cliente.nome}}</a></td>
         <td>{{cliente.telefone}}</td>
         <td>{{cliente.dataNascimento | date : 'dd/MM/yyyy'}}</td>
-        <td (click)="delete(cliente)">
+        <td (click)="delete(cliente, modalConfirma)">
           <img
             src="assets/svg/trash3-fill.svg"
             width="20"
@@ -46,3 +46,9 @@
 
   </div>
 </div>
+
+<app-modal #modalConfirma [titulo]="'Deseja remover o cliente?'">
+  <ng-container *ngIf="clienteSelecionado">
+    Nome: <span class="fw-bold -me-1">{{clienteSelecionado.nome}}</span>
+  </ng-container>
+</app-modal>

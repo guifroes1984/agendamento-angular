@@ -11,6 +11,7 @@ import { PaginaUsuarioComponent } from './paginas/pagina-usuario/pagina-usuario.
 import { PaginaTabelaClientesComponent } from './paginas/pagina-tabela-clientes/pagina-tabela-clientes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginaFormularioClienteComponent } from './paginas/pagina-formulario-cliente/pagina-formulario-cliente.component';
+import { SharedModule } from "../../shared/shared.module";
 
 
 
@@ -28,7 +29,8 @@ import { PaginaFormularioClienteComponent } from './paginas/pagina-formulario-cl
     ManutencaoRoutingModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    SharedModule
+]
 })
 export class ManutencaoModule { }
