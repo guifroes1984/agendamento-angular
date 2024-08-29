@@ -12,9 +12,14 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  getClientes(clienteNomeFiltro: string, page: number): Observable<HttpResponse<Cliente[]>> {
+  getClientesPagina(clienteNomeFiltro: string, page: number): Observable<HttpResponse<Cliente[]>> {
     let url = `${this.baseUrl}?nome_like=${clienteNomeFiltro}&_page=${page}&_limit=10&_sort=nome`;
     return this.http.get<Cliente[]>(url, {observe: 'response'});
+  }
+
+  getClientesComNomeContendo(clienteNomeFiltro: string): Observable<Cliente[]> {
+    let url = `${this.baseUrl}?nome_like=${clienteNomeFiltro}&_limit=10`;
+    return this.http.get<Cliente[]>(url);
   }
 
   delete(cliente: Cliente): Observable<void> {

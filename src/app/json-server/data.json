@@ -1,4 +1,55 @@
 {
+  "areas": [
+    {
+      "id": 1,
+      "nome": "Clínico Geral"
+    },
+    {
+      "id": 2,
+      "nome": "Fisioterapeuta"
+    },
+    {
+      "id": 3,
+      "nome": "Cardiologista"
+    }
+  ],
+  "profissionais": [
+    {
+      "id": 1,
+      "nome": "Dr. Fernando Souza",
+      "telefone": "(93) 4427-2977",
+      "ativo": true,
+      "areaId": 1
+    },
+    {
+      "id": 2,
+      "nome": "Dra. Maria Lucia",
+      "telefone": "(95) 3539-3063",
+      "ativo": true,
+      "areaId": 2
+    },
+    {
+      "id": 3,
+      "nome": "Dr. Marco Pereira",
+      "telefone": "(82) 4514-2617",
+      "ativo": false,
+      "areaId": 2
+    }
+  ],
+  "tipos-compromissos": [
+    {
+      "id": 1,
+      "tipo": "Particular"
+    },
+    {
+      "id": 2,
+      "tipo": "Convênio Dr. Saúde"
+    },
+    {
+      "id": 3,
+      "tipo": "Convênio Prefeitura"
+    }
+  ],
   "clientes": [
     {
       "id": 1,
@@ -599,12 +650,6 @@
       "nome": "Gail Patton",
       "telefone": "(91) 4551-3498",
       "dataNascimento": "2015-08-04"
-    },
-    {
-      "id": 101,
-      "nome": "A",
-      "telefone": "1",
-      "dataNascimento": "2024-08-19"
     }
   ]
 }

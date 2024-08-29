@@ -28,7 +28,7 @@ export class PaginaTabelaClientesComponent implements OnInit {
   }
 
   carregarClientes() {
-    this.clienteService.getClientes(this.nomeFiltro, this.page).subscribe({
+    this.clienteService.getClientesPagina(this.nomeFiltro, this.page).subscribe({
       next: response => {
         this.clientePage.content = response.body;
         this.clientePage.numberOfElements = parseInt( response.headers.get("X-Total-Count") || "0");

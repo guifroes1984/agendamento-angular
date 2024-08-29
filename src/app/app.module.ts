@@ -12,7 +12,7 @@ import { AgendarModule } from './modulos/agendar/agendar.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
