@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, filter, Observable, switchMap } fro
 import { Cliente } from 'src/app/core/modelos/Cliente';
 import { FormularioCriarAgendamentoComponent } from '../../componentes/formulario-criar-agendamento/formulario-criar-agendamento.component';
 import { JsonPipe } from '@angular/common';
+import { ProfissionalService } from 'src/app/core/services/profissional.service';
 
 @Component({
   selector: 'app-pagina-criar-compromissos',
@@ -17,23 +18,50 @@ import { JsonPipe } from '@angular/common';
 })
 export class PaginaCriarCompromissosComponent implements OnInit {
 
-  constructor(
-    private areaService: AreaService,
-    private tipoCompromissoService: TiposCompromissoService,
-    private cilienteService: ClienteService,
-    private jsonPipe: JsonPipe
-  ) { }
+  areas: Area[] = [];
+  tiposCompromissos: TiposCompromissos[] = [];
+  profissionaisPorArea: Profissional[] = [];
+  profissionalSelecionado: Profissional = {} as Profissional;
 
   @ViewChild(FormularioCriarAgendamentoComponent)
   private formularioCriarAgendamentoComponente !: FormularioCriarAgendamentoComponent;
 
-  areas: Area[] = [];
-  tiposCompromissos: TiposCompromissos[] = [];
-  profissionaisPorArea: Profissional[] = [];
+  //Componente Calendário
+  calendarioMes: Date = new Date();
+  diasDisponiveis: number[] = [];
+
+  constructor(
+    private areaService: AreaService,
+    private tipoCompromissoService: TiposCompromissoService,
+    private cilienteService: ClienteService,
+    private profissionalService: ProfissionalService,
+    private jsonPipe: JsonPipe
+  ) { }
 
   ngOnInit(): void {
     this.carregarAreas();
     this.carregarTiposCompromissos();
+  }
+
+  onProfissionalSelecionado(profissional: Profissional) {
+    this.profissionalSelecionado = profissional;
+    this.calendarioMes = new Date();
+    this.carregarDiasDisponiveis();
+  }
+
+  naDataSelecionada(date: Date) {
+    alert(date);
+  }
+
+  noMesAlterado(date: Date) {
+    this.calendarioMes = date;
+    this.carregarDiasDisponiveis();
+  }
+
+  carregarDiasDisponiveis() {
+    this.profissionalService.getDiasDisponiveis(this.profissionalSelecionado, this.calendarioMes).subscribe({
+      next: dias => this.diasDisponiveis = dias
+    })
   }
 
   buscaClientes = (texto: Observable<string>): Observable<Cliente[]> => {

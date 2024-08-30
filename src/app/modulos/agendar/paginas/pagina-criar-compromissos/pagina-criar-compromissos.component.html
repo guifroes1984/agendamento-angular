@@ -8,10 +8,17 @@
         [profissionais]="profissionaisPorArea"
         [buscaClientes]="buscaClientes"
 
-        (selecionadoAreaEvent)="onSelectedArea($event)"></app-formulario-criar-agendamento>
+        (selecionadoAreaEvent)="onSelectedArea($event)"
+        (selecionadoProfissionalEvent)="onProfissionalSelecionado($event)"
+      ></app-formulario-criar-agendamento>
     </div>
     <div class="col-6 border rounded shadow-sm p-4">
-      <div id="calendario"></div>
+      <app-calendario
+        [calendarioMes]="calendarioMes"
+        [diasDisponiveis]="diasDisponiveis"
+        (mudouMesEvent)="noMesAlterado($event)"
+        (dataSelecionadaEvent)="naDataSelecionada($event)">
+      </app-calendario>
       <div id="time"></div>
     </div>
     <div class="d-grid gap-2 mt-2 px-5">

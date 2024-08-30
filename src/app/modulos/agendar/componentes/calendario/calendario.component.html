@@ -1,0 +1,50 @@
+<div class="calendar">
+  <div class="row">
+    <div class="col" [ngClass]="{'previous-month':showPreviousMonth()}" (click)="noMesAnterior()">
+      <img *ngIf="showPreviousMonth()" src="/assets/svg/caret-left-fill.svg" width="20" height="20" alt="previus">
+    </div>
+    <div class="col month-year">
+      {{calendarioMes | date: 'MMMM': 'pt-BR' | titlecase}}/{{ calendarioMes.getFullYear()}}
+    </div>
+    <div class="col next-month" (click)="noProximoMes()">
+      <img src="/assets/svg/caret-right-fill.svg" width="20" height="20" alt="next">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col week-day">
+      Seg
+    </div>
+    <div class="col week-day">
+      Ter
+    </div>
+    <div class="col week-day">
+      Qua
+    </div>
+    <div class="col week-day">
+      Qui
+    </div>
+    <div class="col week-day">
+      Sex
+    </div>
+    <div class="col week-day">
+      Sáb
+    </div>
+    <div class="col week-day">
+      Dom
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let row of [0,1,2,3,4,5]">
+    <div class="col day " [ngClass]="{
+                                        'day-off': !diaDoMes.disponivel && diaDoMes.dia,
+                                        'day-available': diaDoMes.disponivel && diaDoMes.dia,
+                                        'day-selected': diaDoMes.dia == diaSelecionado
+                                      }"
+      *ngFor="let diaDoMes of dias.slice(row*7,(row+1)*7)"
+      (click)="diaDoMes.disponivel && onDiaSelecionado(diaDoMes.dia)"
+      >
+      {{diaDoMes.dia || "&nbsp;"}}
+    </div>
+  </div>
+</div>

@@ -28,6 +28,9 @@ export class FormularioCriarAgendamentoComponent {
   @Output()
   selecionadoAreaEvent = new EventEmitter<Area>;
 
+  @Output()
+  selecionadoProfissionalEvent = new EventEmitter<Profissional>;
+
   submitted: boolean = false;
 
   Agendamentoform: FormGroup;
@@ -48,6 +51,10 @@ export class FormularioCriarAgendamentoComponent {
    OnAreaChanged() {
     this.selecionadoAreaEvent.emit(this.Agendamentoform.value['area']);
     this.Agendamentoform.controls["profissional"].enable();
+   }
+
+   OnProfissionalChanged() {
+    this.selecionadoProfissionalEvent.emit(this.Agendamentoform.value['profissional']);
    }
 
    getClienteSelecionado(): Cliente {

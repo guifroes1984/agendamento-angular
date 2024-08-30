@@ -11,6 +11,7 @@ import { PaginaHistoricoClienteComponent } from './paginas/pagina-historico-clie
 import { PaginaDiasTrabalhoProfissionaisComponent } from './paginas/pagina-dias-trabalho-profissionais/pagina-dias-trabalho-profissionais.component';
 import { FormularioCriarAgendamentoComponent } from './componentes/formulario-criar-agendamento/formulario-criar-agendamento.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarioComponent } from './componentes/calendario/calendario.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PaginaCancelarCompromissosComponent,
     PaginaHistoricoClienteComponent,
     PaginaDiasTrabalhoProfissionaisComponent,
-    FormularioCriarAgendamentoComponent
+    FormularioCriarAgendamentoComponent,
+    CalendarioComponent
   ],
   imports: [
     CommonModule,
