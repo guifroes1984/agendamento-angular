@@ -12,4 +12,7 @@
       {{tempo.horarioInicio | tempo}}
     </div>
   </div>
+  <div *ngIf="tempoError" class="text-start">
+    <small class="form-text text-danger">{{tempoError}}</small>
+  </div>
 </div>

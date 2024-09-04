@@ -16,17 +16,58 @@
       <app-calendario
         [calendarioMes]="calendarioMes"
         [diasDisponiveis]="diasDisponiveis"
+        [calendarioError]="calendarioError"
         (mudouMesEvent)="noMesAlterado($event)"
         (dataSelecionadaEvent)="naDataSelecionada($event)">
       </app-calendario>
       <app-tempo
         [tempos]="temposDisponiveis"
+        [tempoError]="tempoError"
         (tempoSelecionadoEvent)="onTempoSelecionado($event)"
         >
       </app-tempo>
       <div id="time"></div>
     </div>
     <div class="d-grid gap-2 mt-2 px-5">
-      <button type="button" class="btn btn-primary shadow-sm" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal" (click)="criarAgendamento()">Agendar</button>
+      <button type="button" class="btn btn-primary shadow-sm" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal"
+        (click)="criarAgendamento(modalConfirma)">Agendar
+      </button>
   </div>
 </div>
+
+<app-modal #modalConfirma [titulo]="'Confirmar Agendamento?'">
+  <ng-container *ngIf="compromisso">
+    <div class="alert alert-secondary">
+          <div class="row">
+            <div class="col-2">Cliente:</div>
+            <div class="col-10 fw-bold">{{compromisso.cliente && compromisso.cliente.nome}}</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Data:</div>
+            <div class="col-10 fw-bold">{{compromisso.data | date: "dd/MM/yyyy" }}</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Horário:</div>
+            <div class="col-10 fw-bold">{{compromisso.horarioInicio}}</div>
+          </div>
+        </div>
+        <div class="alert alert-secondary">
+          <div class="row">
+            <div class="col-2">Área:</div>
+            <div class="col-10 fw-bold">{{compromisso.area && compromisso.area.nome}}</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Profissional</div>
+            <div class="col-10 fw-bold">{{compromisso.profissional && compromisso.profissional.nome}}</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Tipo:</div>
+            <div class="col-10 fw-bold">{{compromisso.tipo && compromisso.tipo.tipo}}</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Comentários:</div>
+            <div class="col-10 fw-bold">{{compromisso.comentarios}}</div>
+          </div>
+        </div>
+  </ng-container>
+</app-modal>

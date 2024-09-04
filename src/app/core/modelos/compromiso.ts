@@ -7,7 +7,7 @@ export interface Compromisso {
   id: number;
   cliente: Cliente;
   area: Area;
-  proffisional: Profissional;
+  profissional: Profissional;
   tipo: TiposCompromissos;
   data: Date;
   horarioInicio: string;

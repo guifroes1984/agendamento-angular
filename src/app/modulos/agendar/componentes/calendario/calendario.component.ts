@@ -18,6 +18,9 @@ export class CalendarioComponent implements OnInit, OnChanges {
   @Output()
   mudouMesEvent = new EventEmitter<Date>();
 
+  @Input()
+  calendarioError: string = "";
+
   @Output()
   dataSelecionadaEvent = new EventEmitter<Date>();
 

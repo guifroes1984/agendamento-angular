@@ -39,7 +39,7 @@ export class FormularioCriarAgendamentoComponent {
     this.Agendamentoform = this.formBuilder.group({
       area: ['', Validators.required],
       profissional: [{value: '', disabled: true}, Validators.required],
-      tiposCompromissos: ['', Validators.required],
+      tipo: ['', Validators.required],
       cliente: ['', Validators.required],
       comentarios: ['']
     });
@@ -61,11 +61,16 @@ export class FormularioCriarAgendamentoComponent {
     return this.Agendamentoform.controls["cliente"].value;
    }
 
+   limpaForm() {
+    this.Agendamentoform.reset();
+    this.submitted = false;
+   }
+
    get afArea() {return this.Agendamentoform.get('area');}
 
    get afProfissional() {return this.Agendamentoform.get('profissional');}
 
-   get aftiposCompromissos() {return this.Agendamentoform.get('tiposCompromissos');}
+   get aftiposCompromissos() {return this.Agendamentoform.get('tipo');}
 
    get afCliente() {return this.Agendamentoform.get('cliente');}
 

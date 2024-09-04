@@ -11,7 +11,10 @@ import { FormularioCriarAgendamentoComponent } from '../../componentes/formulari
 import { JsonPipe } from '@angular/common';
 import { ProfissionalService } from 'src/app/core/services/profissional.service';
 import { Tempo } from '../../componentes/tempo/modelos/tempo';
-import { Compromisso } from 'src/app/core/modelos/comprommiso';
+import { Compromisso } from 'src/app/core/modelos/compromiso';
+import { ModalComponent } from 'src/app/shared/componentes/modal/modal.component';
+import { CompromissoService } from 'src/app/core/services/compromisso.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-pagina-criar-compromissos',
@@ -24,6 +27,7 @@ export class PaginaCriarCompromissosComponent implements OnInit {
   tiposCompromissos: TiposCompromissos[] = [];
   profissionaisPorArea: Profissional[] = [];
   profissionalSelecionado: Profissional = {} as Profissional;
+  compromisso: Compromisso = {} as Compromisso;
 
   @ViewChild(FormularioCriarAgendamentoComponent)
   private formularioCriarAgendamentoComponente !: FormularioCriarAgendamentoComponent;
@@ -32,17 +36,20 @@ export class PaginaCriarCompromissosComponent implements OnInit {
   tempoSelecionado !: Tempo;
   temposDisponiveis: Tempo[] = [];
   dataSelecionada !: Date;
+  calendarioError: string = "";
 
   //Componente Calendário
   calendarioMes: Date = new Date();
   diasDisponiveis: number[] = [];
+  tempoError: string = "";
 
   constructor(
     private areaService: AreaService,
     private tipoCompromissoService: TiposCompromissoService,
     private cilienteService: ClienteService,
-    private profissionalService: ProfissionalService,
-    private jsonPipe: JsonPipe
+    private profissionalService: ProfissionalService, 
+    private compromissoService: CompromissoService, 
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +59,7 @@ export class PaginaCriarCompromissosComponent implements OnInit {
 
   onTempoSelecionado(tempo: Tempo) {
     this.tempoSelecionado = tempo;
+    this.tempoError = "";
   }
 
   onProfissionalSelecionado(profissional: Profissional) {
@@ -64,6 +72,7 @@ export class PaginaCriarCompromissosComponent implements OnInit {
 
   naDataSelecionada(data: Date) {
     this.dataSelecionada = data;
+    this.calendarioError = "";
     this.carregarTemposDisponiveis();
   }
 
@@ -118,16 +127,55 @@ export class PaginaCriarCompromissosComponent implements OnInit {
     this.diasDisponiveis = [];
   }
 
-  criarAgendamento() {
-    this.formularioCriarAgendamentoComponente.submitted = true;
-    let compromisso: Compromisso = {} as Compromisso;
+  limpar() {
+    this.formularioCriarAgendamentoComponente.limpaForm();
+    this.temposDisponiveis = [];
+    this.diasDisponiveis = [];
+    this.compromisso = {} as Compromisso;
+  }
 
-    compromisso = {...this.formularioCriarAgendamentoComponente.Agendamentoform.value };
+  criarAgendamento(modalConfirma: ModalComponent) {
+    this.formularioCriarAgendamentoComponente.submitted = true;
+    this.verificaDataHoraErros();
+
+    if (this.consultaValida()) {
+      this.compromisso = this.criarCompromissoObjeto();
+      modalConfirma.open({size: "lg"}).then(confirm => {
+        if (confirm) {
+          this.compromissoService.salvar(this.compromisso).subscribe({
+            next: () => {
+              this.toastService.show("Agendamento criado com sucesso!", {classname: "bg-success text-light"});
+              this.limpar();
+            },
+            error: () => {
+              this.toastService.show("Erro ao fazer o agendamento!", {classname: "bg-danger text-light"});
+            }
+          });
+        }
+        });
+    }
+  }
+
+  private criarCompromissoObjeto(): Compromisso {
+    let compromisso: Compromisso = {} as Compromisso;
+    compromisso = {...this.formularioCriarAgendamentoComponente.Agendamentoform.value};
     compromisso.horarioInicio = this.tempoSelecionado.horarioInicio;
     compromisso.horarioFim = this.tempoSelecionado.horarioFim;
     compromisso.data = this.dataSelecionada;
+    return compromisso;
+  }
 
-    console.log(this.jsonPipe.transform(compromisso));
+  private verificaDataHoraErros(): void {
+    if (!this.dataSelecionada) {
+      this.calendarioError = "Selecione uma data!"
+    }
+    if (!this.tempoSelecionado) {
+      this.tempoError = "Selecione um horário!"
+    }
+  }
+
+  private consultaValida(): boolean {
+    return !!(this.formularioCriarAgendamentoComponente.Agendamentoform.valid && this.dataSelecionada && this.tempoSelecionado);
   }
 
 }

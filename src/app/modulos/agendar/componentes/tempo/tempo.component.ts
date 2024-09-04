@@ -11,6 +11,9 @@ export class TempoComponent implements OnInit, OnChanges {
   @Input()
   tempos: Tempo[] = [];
 
+  @Input()
+  tempoError: string = "";
+
   @Output()
   tempoSelecionadoEvent = new EventEmitter<Tempo>();
 
