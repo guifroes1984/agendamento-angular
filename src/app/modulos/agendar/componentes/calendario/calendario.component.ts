@@ -33,8 +33,10 @@ export class CalendarioComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.diaSelecionado = 0;
-    this.carregarCalendario();
+    if(changes.hasOwnProperty("diasDisponiveis")) {
+      this.diaSelecionado = 0;
+      this.carregarCalendario();
+    }
   }
 
   onDiaSelecionado(dia: number) {

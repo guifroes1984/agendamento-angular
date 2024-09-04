@@ -24,11 +24,14 @@ export class TempoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.horarioSelecionado = {} as Tempo;
-
-    if(this.tempos.length === 0) {
-      this.reniciarTempos();
+    if(changes.hasOwnProperty("tempos")) {
+      this.horarioSelecionado = {} as Tempo;
+  
+      if(this.tempos.length === 0) {
+        this.reniciarTempos();
+      }
     }
+
   }
 
   reniciarTempos() {
