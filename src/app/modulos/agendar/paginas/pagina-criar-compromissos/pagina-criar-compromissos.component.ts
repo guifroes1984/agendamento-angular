@@ -10,6 +10,8 @@ import { Cliente } from 'src/app/core/modelos/Cliente';
 import { FormularioCriarAgendamentoComponent } from '../../componentes/formulario-criar-agendamento/formulario-criar-agendamento.component';
 import { JsonPipe } from '@angular/common';
 import { ProfissionalService } from 'src/app/core/services/profissional.service';
+import { Tempo } from '../../componentes/tempo/modelos/tempo';
+import { Compromisso } from 'src/app/core/modelos/comprommiso';
 
 @Component({
   selector: 'app-pagina-criar-compromissos',
@@ -25,6 +27,11 @@ export class PaginaCriarCompromissosComponent implements OnInit {
 
   @ViewChild(FormularioCriarAgendamentoComponent)
   private formularioCriarAgendamentoComponente !: FormularioCriarAgendamentoComponent;
+
+  //Componete Tempo
+  tempoSelecionado !: Tempo;
+  temposDisponiveis: Tempo[] = [];
+  dataSelecionada !: Date;
 
   //Componente Calendário
   calendarioMes: Date = new Date();
@@ -43,19 +50,33 @@ export class PaginaCriarCompromissosComponent implements OnInit {
     this.carregarTiposCompromissos();
   }
 
+  onTempoSelecionado(tempo: Tempo) {
+    this.tempoSelecionado = tempo;
+  }
+
   onProfissionalSelecionado(profissional: Profissional) {
     this.profissionalSelecionado = profissional;
+    this.diasDisponiveis = [];
+    this.temposDisponiveis = [];
     this.calendarioMes = new Date();
     this.carregarDiasDisponiveis();
   }
 
-  naDataSelecionada(date: Date) {
-    alert(date);
+  naDataSelecionada(data: Date) {
+    this.dataSelecionada = data;
+    this.carregarTemposDisponiveis();
   }
 
   noMesAlterado(date: Date) {
     this.calendarioMes = date;
+    this.temposDisponiveis = [];
     this.carregarDiasDisponiveis();
+  }
+
+  carregarTemposDisponiveis() {
+    this.profissionalService.getTemposDisponiveis(this.profissionalSelecionado, this.dataSelecionada).subscribe({
+      next: tempos => this.temposDisponiveis = tempos
+    })
   }
 
   carregarDiasDisponiveis() {
@@ -92,12 +113,21 @@ export class PaginaCriarCompromissosComponent implements OnInit {
       next: profissionais => {
         this.profissionaisPorArea = profissionais;
       }
-    })
+    });
+    this.temposDisponiveis = [];
+    this.diasDisponiveis = [];
   }
 
   criarAgendamento() {
     this.formularioCriarAgendamentoComponente.submitted = true;
-    alert(this.jsonPipe.transform(this.formularioCriarAgendamentoComponente.Agendamentoform.value));
+    let compromisso: Compromisso = {} as Compromisso;
+
+    compromisso = {...this.formularioCriarAgendamentoComponente.Agendamentoform.value };
+    compromisso.horarioInicio = this.tempoSelecionado.horarioInicio;
+    compromisso.horarioFim = this.tempoSelecionado.horarioFim;
+    compromisso.data = this.dataSelecionada;
+
+    console.log(this.jsonPipe.transform(compromisso));
   }
 
 }

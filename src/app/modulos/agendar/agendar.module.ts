@@ -12,6 +12,8 @@ import { PaginaDiasTrabalhoProfissionaisComponent } from './paginas/pagina-dias-
 import { FormularioCriarAgendamentoComponent } from './componentes/formulario-criar-agendamento/formulario-criar-agendamento.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarioComponent } from './componentes/calendario/calendario.component';
+import { TempoComponent } from './componentes/tempo/tempo.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import { CalendarioComponent } from './componentes/calendario/calendario.compone
     PaginaHistoricoClienteComponent,
     PaginaDiasTrabalhoProfissionaisComponent,
     FormularioCriarAgendamentoComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    TempoComponent
   ],
   imports: [
     CommonModule,
     AgendarRoutingModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [
     JsonPipe

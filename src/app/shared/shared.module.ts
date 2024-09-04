@@ -5,12 +5,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ToastComponent } from './componentes/toast/toast.component';
 import { ModalComponent } from './componentes/modal/modal.component';
+import { TempoPipe } from './pipes/tempo.pipe';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     ToastComponent,
-    ModalComponent
+    ModalComponent,
+    TempoPipe
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ModalComponent } from './componentes/modal/modal.component';
   exports: [
     HeaderComponent,
     ToastComponent,
-    ModalComponent
+    ModalComponent,
+    TempoPipe
   ]
 })
 export class SharedModule { }

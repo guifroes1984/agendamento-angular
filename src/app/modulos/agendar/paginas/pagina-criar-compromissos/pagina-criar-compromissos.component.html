@@ -19,6 +19,11 @@
         (mudouMesEvent)="noMesAlterado($event)"
         (dataSelecionadaEvent)="naDataSelecionada($event)">
       </app-calendario>
+      <app-tempo
+        [tempos]="temposDisponiveis"
+        (tempoSelecionadoEvent)="onTempoSelecionado($event)"
+        >
+      </app-tempo>
       <div id="time"></div>
     </div>
     <div class="d-grid gap-2 mt-2 px-5">

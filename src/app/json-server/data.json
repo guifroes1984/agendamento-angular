@@ -34,6 +34,13 @@
       "telefone": "(82) 4514-2617",
       "ativo": false,
       "areaId": 2
+    },
+    {
+      "id": 4,
+      "nome": "Dr. Luciano Silva",
+      "telefone": "(82) 4317-2117",
+      "ativo": true,
+      "areaId": 2
     }
   ],
   "tipos-compromissos": [
